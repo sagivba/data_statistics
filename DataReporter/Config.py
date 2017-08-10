@@ -14,10 +14,11 @@ class Config:
         get_path_list = lambda path, file: path[:] + [file]
         get_path = lambda path, file: os.path.join(*get_path_list(path, file))
 
-        self.DATA_PATH_LIST= [os.getcwd(), "Data"]
-        self.FIG_PATH_LIST =  [os.getcwd(), "Fig"]
+        self.DATA_PATH_LIST= ["H:\\","DataMining","python_code","Data"]
+        self.FIG_PATH_LIST =  ["Fig"]
         # files names
         self.LOG_NAME = get_path(self.DATA_PATH_LIST, "log.log")
+        self.DATA_PATH=get_path(self.DATA_PATH_LIST,"")
 
 
         self.LOG_FORMAT = '{:10} {}: {} '.format(
