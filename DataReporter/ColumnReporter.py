@@ -27,6 +27,7 @@ class ColumnReporter():
             "plot_object": self.plot(),
             "statistic_info":self.statistics()
          }
+
         return self.report_dict
 
     def statistics(self):
@@ -53,7 +54,7 @@ class ColumnReporter():
         plot_dict={
             "object" :[{"kind":"bar"}],
             "bool"   :[{"kind":"bar"}],
-            "float64":[{"kind":"box"},{"kind":"line"}],
+            "float64": [{"kind": "box"}, {"kind": "line"}, {"kind": "hist"}],
             "int64"  :[{"kind":"box"},{"kind":"hist"}],
             "float32":[{"kind":"box"},{"kind":"line"}],
             "int32"  :[{"kind":"box"},{"kind":"hist"}],
@@ -79,13 +80,16 @@ class ColumnReporter():
             else:
                 return None
 
-        print "fig_path={}".format(fig_path)
+        print("fig_path={}".format(fig_path))
         fig.savefig(fig_path)
+        plt.cla()
+        plt.clf()
         return fig_path
 
     def unique(self):
         _data = self.data_column
-        uv=map(str,sorted(_data.unique()))
+        uniq_vals = _data.unique()
+        uv = sorted(list(map(str, uniq_vals)))
         if len(uv) > 20:
             uv=map(str,uv[0:9] + ["..."] + uv[-9:-1])
         return ", ".join(uv)

@@ -1,12 +1,12 @@
 from DataReporter.Config import Config
-from DataReporter.ColumnReporter import ColumnReporter
+# from DataReporter.ColumnReporter import ColumnReporter
 from DataReporter.Report import *
 from DataReporter.FileReader import FileReader
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import click
 from time import time
 def verbose (text):
-    print text
+    print(text)
 @click.command()
 @click.option('--input_file' ,   '-i',
               help='input file (with suffixes: csv,xlsx)',
@@ -36,6 +36,7 @@ def main(input_file,output_format,output_dir):
         raise ValueError("not valid {}".format(output_format))
     verbose("out_file   : '{}'".format(out_file))
     text= reporter.run()
+    print(text)
     with open(out_file, 'w') as out_file:
         out_file.write(text)
 
