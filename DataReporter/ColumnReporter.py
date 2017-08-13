@@ -82,8 +82,8 @@ class ColumnReporter():
 
         print("fig_path={}".format(fig_path))
         fig.savefig(fig_path)
-        plt.cla()
-        plt.clf()
+        # plt.cla()
+        # plt.clf()
         return fig_path
 
     def unique(self):
