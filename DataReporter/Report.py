@@ -29,11 +29,15 @@ class Report():
 
         return self.report
 
+    def format_data_info_line(self, lbl, data_info_dict):
+        return "{}:{}\n".format(lbl, data_info_dict[lbl])
+
     def report_data_info(self, data_info_dict):
-        text = "{}:{}\n".format("Number of Records", data_info_dict["Number of Records"])
-        text += "{}:{}\n".format("Number of columns", data_info_dict["Number of columns"])
-        text += "{}:{}\n".format("Columns Names", data_info_dict["Columns Names"])
-        return text
+        text = ""
+        for lbl in ["Number of Records", "Number of columns", "Empty values", "Columns Names"]:
+            line = self.format_data_info_line(lbl, data_info_dict)
+            text += line
+        return self.container(text)
 
     def report_header(self,text):
         return text
@@ -98,14 +102,17 @@ class Report():
 
 
 class HTMLReport(Report):
-    def report_data_info(self, data_info_dict):
-        text = "<div class='col-sm-12' >\n<ul>"
-        text += "<li>{}:{}</li>\n".format("Number of Records", data_info_dict["Number of Records"])
-        text += "<li>{}:{}</li>\n".format("Number of columns", data_info_dict["Number of columns"])
-        text += "<li>{}:{}</li>\n".format("Columns Names", data_info_dict["Columns Names"])
-        text += "</ul>\n</div>\n"
+    def format_data_info_line(self, lbl, data_info_dict):
+        return "<li>{}:{}</li>\n".format(lbl, data_info_dict[lbl])
 
-        return self.container(text)
+    # def report_data_info(self, data_info_dict):
+    #     text = "<div class='col-sm-12' >\n<ul>"
+    #     text += "<li>{}:{}</li>\n".format("Number of Records", data_info_dict["Number of Records"])
+    #     text += "<li>{}:{}</li>\n".format("Number of columns", data_info_dict["Number of columns"])
+    #     text += "<li>{}:{}</li>\n".format("Columns Names", data_info_dict["Columns Names"])
+    #     text += "</ul>\n</div>\n"
+    #
+    #     return self.container(text)
 
     def report_header(self,text):
         header='<!DOCTYPE html>\n'
