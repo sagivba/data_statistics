@@ -6,6 +6,9 @@ class ColumnReporter():
         self.data_column=data_column
         self.config=config
 
+    def verbose(self, text):
+        if self.config.is_verbose: print(text)
+
     def report(self):
         """
         
@@ -80,10 +83,8 @@ class ColumnReporter():
             else:
                 return None
 
-        print("fig_path={}".format(fig_path))
+        self.verbose("plot path:  '{}'".format(fig_path))
         fig.savefig(fig_path)
-        # plt.cla()
-        # plt.clf()
         return fig_path
 
     def unique(self):

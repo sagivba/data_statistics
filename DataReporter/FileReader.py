@@ -1,8 +1,11 @@
 import pandas as pd
-import logging
+
+
+# import logging
 class FileReader():
     """read file into DataFrame"""
     def __init__(self,file_name,file_type,config):
+        self.config = config
         self.file_name=file_name
         self.rf_dict={
                 "csv":pd.read_csv,
@@ -13,13 +16,13 @@ class FileReader():
             raise ValueError("file type: {} is not valid - not in {}".
                              format(file_type,self.rf_dict.keys()))
         self.file_type=file_type
-        self.config=config
+
         # logging.basicConfig(filename=config.LOG_NAME, format=config.LOG_FORMAT, filemode='w', level=config.LOG_LEVEL)
 
         return
 
-    def __str__(self):
-        pass
+    def verbose(self, text):
+        if self.config.is_verbose: print(text)
 
     def read_data(self, *args):
         _read_file=self.rf_dict[self.file_type]
@@ -28,5 +31,5 @@ class FileReader():
                      *args
         )
 
-        logging.info("loaded data from %s", self.file_name)
+        self.verbose("data was loaded from {}".format(self.file_name))
         return self.df

@@ -1,6 +1,6 @@
 import os
 import logging
-from time import time
+# from time import time
 import pandas as pd
 
 class Config:
@@ -8,9 +8,10 @@ class Config:
     this class is the configuration
     see comments below
     """
-    def __init__(self):
-        pd.set_option('expand_frame_repr', False)
 
+    def __init__(self, is_verbose=False):
+        pd.set_option('expand_frame_repr', False)
+        self.is_verbose = is_verbose
         get_path_list = lambda path, file: path[:] + [file]
         get_path = lambda path, file: os.path.join(*get_path_list(path, file))
 

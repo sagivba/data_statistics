@@ -1,5 +1,10 @@
 from  DataReporter.ColumnReporter import ColumnReporter
-import pprint
+from  DataReporter.DataInfo import DataInfo
+
+
+# import pprint
+
+
 class Report():
     """creates html or text report from report_data_lst """
     def __init__(self,report_name,df,config):
@@ -8,16 +13,27 @@ class Report():
         self.report=""
         self.report_name = report_name
 
+    def verbose(self, text):
+        if self.config.is_verbose: print(text)
+
     def run(self):
 
         _df=self.df
-        self.report = self.report_header("lalal") + "\n"
+        self.report = self.report_header("ll") + "\n"
+        self.report += self.report_data_info(DataInfo(_df, self.config).info_dict)
+
         for col_name in _df:
             col_report=ColumnReporter(_df[col_name],self.config)
             col_report_dict=col_report.report()
             self.report+=self.format(col_report_dict)
 
         return self.report
+
+    def report_data_info(self, data_info_dict):
+        text = "{}:{}\n".format("Number of Records", data_info_dict["Number of Records"])
+        text += "{}:{}\n".format("Number of columns", data_info_dict["Number of columns"])
+        text += "{}:{}\n".format("Columns Names", data_info_dict["Columns Names"])
+        return text
 
     def report_header(self,text):
         return text
@@ -81,12 +97,15 @@ class Report():
         return text
 
 
-
-
-
-
-
 class HTMLReport(Report):
+    def report_data_info(self, data_info_dict):
+        text = "<div class='col-sm-12' >\n<ul>"
+        text += "<li>{}:{}</li>\n".format("Number of Records", data_info_dict["Number of Records"])
+        text += "<li>{}:{}</li>\n".format("Number of columns", data_info_dict["Number of columns"])
+        text += "<li>{}:{}</li>\n".format("Columns Names", data_info_dict["Columns Names"])
+        text += "</ul>\n</div>\n"
+
+        return self.container(text)
 
     def report_header(self,text):
         header='<!DOCTYPE html>\n'
@@ -135,6 +154,7 @@ class HTMLReport(Report):
         return "<img src='{}' alt='plot:{}' width='80%%' >\n".format(img_path,img_path)
     def new_line(self):
         return "<br/>\n"
+
 
 class TEXTReport(Report):
     def h_i(self, chr, text):
