@@ -3,6 +3,7 @@ A lean tool for obtaining statistics on flat data files
 
 ## Usage Examples:
 ### get help
+```
  [prompt]$ python data_statistics.py --help
 Usage: data_statistics.py [OPTIONS]
 
@@ -17,22 +18,27 @@ Options:
   -D, --output_dir TEXT           DIR_NAME output dirctory name)
   -v, --verbose                   verbose mode
   --help                          Show this message and exit.
+```
 
 
 ### html output
- [prompt]$ python data_statistics.py -i "h:\DataMining\TestData\dessert.csv" -D "h:\tmp\dessert" -v
-data was loaded from h:\DataMining\TestData\dessert.csv
-input_file: 'h:\DataMining\TestData\dessert.csv'
-fig dir   : 'h:\tmp\dessert\Fig\'
-out_file  : 'h:\tmp\dessert\report.html'
-plot path:  'h:\tmp\dessert\Fig\id.png'
-plot path:  'h:\tmp\dessert\Fig\day.of.week.png'
-plot path:  'h:\tmp\dessert\Fig\num.of.guests.png'
-plot path:  'h:\tmp\dessert\Fig\hour.png'
-plot path:  'h:\tmp\dessert\Fig\table.png'
-plot path:  'h:\tmp\dessert\Fig\dessert.png'
+
+```
+ [prompt]$ python data_statistics.py -i "TestData/dessert.csv" -D "/tmp/dessert" -v
+data was loaded from /home/sagivba/TestData/dessert.csv
+input_file: '/home/sagivba/TestData/dessert.csv'
+fig dir   : '/home/sagivba/TestData/Fig/'
+out_file  : '/home/sagivba/TestData/report.html'
+plot path:  '/tmp/dessert/Fig/id.png'
+plot path:  '/tmp/dessert/Fig/day.of.week.png'
+plot path:  '/tmp/dessert/Fig/num.of.guests.png'
+plot path:  '/tmp/dessert/Fig/hour.png'
+plot path:  '/tmp/dessert/Fig/table.png'
+plot path:  '/tmp/dessert/Fig/dessert.png'
 
 
-out file: h:\tmp\dessert\report.html
+out file: /tmp/dessert/report.html
+```
+
 
 
