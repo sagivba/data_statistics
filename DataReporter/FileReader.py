@@ -24,11 +24,11 @@ class FileReader():
     def verbose(self, text):
         if self.config.is_verbose: print(text)
 
-    def read_data(self, *args):
+    def read_data(self, *args, **kwargs):
         _read_file=self.rf_dict[self.file_type]
         self.df = _read_file(
-                      filepath_or_buffer=self.file_name,
-                     *args
+            self.file_name,
+            *args, **kwargs
         )
 
         self.verbose("data was loaded from {}".format(self.file_name))
