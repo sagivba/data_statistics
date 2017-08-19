@@ -89,10 +89,7 @@ class Report():
         info += self.h3("data_type: {}".format( _crd["data_dype"]))
         info += self.h3("uniq:")
         info += self.div(_crd["unique_values"])
-
         info += self.div(self.h3("statistic_info:") + str_statistic_info(_crd["statistic_info"]))
-
-
         text+=self.info(info)
         if _crd["plot_object"]:
             plot += self.showimg(_crd["plot_object"])
@@ -118,7 +115,7 @@ class HTMLReport(Report):
         header='<!DOCTYPE html>\n'
         header += '<html lang="en">\n'
         header +=    '<head>\n'
-        header +=    '  <title>Bootstrap Example</title>\n'
+        header += '  <title>data statistics</title>\n'
         header +=    '  <meta charset="utf-8">\n'
         header +=    '  <meta name="viewport" content="width=device-width, initial-scale=1">\n'
         header +=    '  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">\n'
