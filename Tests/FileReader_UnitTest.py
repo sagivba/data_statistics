@@ -1,7 +1,7 @@
-from DataReporter.FileReader import *
-from DataReporter.Config import *
-import os
 import unittest
+
+from DataUtils.FileReader import *
+from DataUtils.Reporter.Config import *
 
 
 class TestFileReader(unittest.TestCase):

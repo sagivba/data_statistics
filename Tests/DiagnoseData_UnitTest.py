@@ -1,6 +1,6 @@
 import unittest
 
-from DataReporter.ColumnReporter import DiagnoseData
+from DataUtils.Reporter.ColumnReporter import DiagnoseData
 
 
 class TestDiagnoseData(unittest.TestCase):

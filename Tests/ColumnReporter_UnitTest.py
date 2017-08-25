@@ -1,7 +1,8 @@
-from DataReporter.FileReader import *
-from DataReporter.ColumnReporter import *
-from DataReporter.Config import *
 import unittest
+
+from DataUtils.FileReader import *
+from DataUtils.Reporter.ColumnReporter import *
+from DataUtils.Reporter.Config import *
 
 
 class TestColumnReporter(unittest.TestCase):

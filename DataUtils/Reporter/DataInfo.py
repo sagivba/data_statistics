@@ -2,7 +2,7 @@ class DataInfo:
     """
     return dict of info about data frame
     """
-
+    __version__ = '0.0.2'
     def __init__(self, df, config):
         self.config = config
         self.df = df

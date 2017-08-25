@@ -1,11 +1,13 @@
-from DataReporter.Config import Config
-# from DataReporter.ColumnReporter import ColumnReporter
-from DataReporter.Report import *
-from DataReporter.FileReader import FileReader
-# import matplotlib.pyplot as plt
-import click
+import os
 from time import time
 
+import click
+
+from DataUtils.FileReader import FileReader
+from DataUtils.Reporter.Config import Config
+from DataUtils.Reporter.Report import *
+
+__version__ = '0.0.3'
 
 def verbose(text):
     print(text)
@@ -35,13 +37,15 @@ def main(input_file, output_format, output_dir, verbose):
 
     fr = FileReader(file_name=input_file, file_type='csv', config=config)
     df = fr.read_data()
+    report_name = os.path.basename(input_file)
+    print("report_name: {}".format(report_name))
     if str(output_format).upper() in ['TEXT', 'T']:
-        reporter = TEXTReport(input_file, df, config)
-        out_file_name = "{}\\report.text".format(output_dir)
+        reporter = TEXTReport(report_name, df, config)
+        out_file_name = os.path.join(output_dir, "report.text")
 
     elif str(output_format).upper() in ['HTML', 'H']:
-        reporter = HTMLReport(input_file, df, config)
-        out_file_name = "{}\\report.html".format(output_dir)
+        reporter = HTMLReport(report_name, df, config)
+        out_file_name = os.path.join(output_dir, "report.html")
     else:
         raise ValueError("not valid {}".format(output_format))
     reporter.verbose("input_file: '{}'".format(input_file))
@@ -52,7 +56,7 @@ def main(input_file, output_format, output_dir, verbose):
     with open(out_file_name, 'w') as out_file:
         out_file.write(text)
 
-    print("\n\n out file: {}".format(out_file_name))
+    print("\n\nout file: '{}'".format(out_file_name))
 
 
 if __name__ == '__main__':
