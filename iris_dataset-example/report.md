@@ -6,7 +6,7 @@ Number of Records:150
 Number of columns:5
 Empty values:0.000%
 Columns Names:['sepal length', 'sepal width', 'petal length', 'petal width', 'class']
-![None](Fig/scatter_matrix-class.png)
+![None](Fig\scatter_matrix-class.png)
 # sepal length
 ### data_type: float64
 ### uniq:
@@ -28,7 +28,7 @@ Columns Names:['sepal length', 'sepal width', 'petal length', 'petal width', 'cl
 	mostly type: : Mostly Integer
 
 
-![None](Fig/sepal_length.png)
+![None](Fig\sepal_length.png)
 # sepal width
 ### data_type: float64
 ### uniq:
@@ -50,7 +50,7 @@ Columns Names:['sepal length', 'sepal width', 'petal length', 'petal width', 'cl
 	mostly type: : Mostly Integer
 
 
-![None](Fig/sepal_width.png)
+![None](Fig\sepal_width.png)
 # petal length
 ### data_type: float64
 ### uniq:
@@ -72,7 +72,7 @@ Columns Names:['sepal length', 'sepal width', 'petal length', 'petal width', 'cl
 	mostly type: : Mostly Integer
 
 
-![None](Fig/petal_length.png)
+![None](Fig\petal_length.png)
 # petal width
 ### data_type: float64
 ### uniq:
@@ -94,7 +94,7 @@ Columns Names:['sepal length', 'sepal width', 'petal length', 'petal width', 'cl
 	mostly type: : Mostly Integer
 
 
-![None](Fig/petal_width.png)
+![None](Fig\petal_width.png)
 # class
 ### data_type: object
 ### uniq:
@@ -108,4 +108,4 @@ setosa, versicolor, virginica
 	mostly type: : Unknown
 
 
-![None](Fig/class.png)
+![None](Fig\class.png)

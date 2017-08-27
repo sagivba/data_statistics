@@ -42,4 +42,4 @@ class Config:
         if is_absolute:
             return os.path.join(*fpl)
         else:
-            return "/".join(fpl)
+            return "\\".join(fpl)
