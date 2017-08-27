@@ -36,7 +36,10 @@ class Config:
             fig_path_lst = [self.FIG_DIR]
 
         fig_dir = os.path.join(*fig_path_lst)
-        if not os.path.exists(fig_dir):
+        if not os.path.exists(fig_dir) and is_absolute:
             os.makedirs(fig_dir)
         fpl = [fig_dir, fig_name]
-        return os.path.join(*fpl)
+        if is_absolute:
+            return os.path.join(*fpl)
+        else:
+            return "/".join(fpl)
