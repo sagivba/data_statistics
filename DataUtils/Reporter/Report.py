@@ -57,7 +57,7 @@ class Report():
             text += line
         self.report_lst.append({"data_info": data_info_lines})
         if scatter_matrix_fig_path is not None:
-            text += self.showimg(scatter_matrix_fig_path)
+            text += self.showimg(scatter_matrix_fig_path, None)
         return self.container(self.ul(text))
 
     def report_header(self, text):
@@ -125,7 +125,7 @@ class Report():
         info += self.div(self.h3("statistic_info:") + str_statistic_info(_crd["statistic_info"]))
         text += self.info(info)
         if _crd["plot_object"]:
-            plot += self.showimg(_crd["plot_object"])
+            plot += self.showimg(_crd["plot_object"], None)
             text += self.show_plot(plot)
         text = self.container(h1 + text)
         return text
@@ -219,7 +219,7 @@ class TEXTReport(Report):
         return "***\n{}\n***\n".format(text)
 
     def format_data_info_line(self, lbl, data_info_dict):
-        return "{}:{}\n".format(lbl, data_info_dict[lbl])
+        return "- {}:{}\n".format(lbl, data_info_dict[lbl])
 
     def h_i(self, n, text):
         return "{} {}\n".format('#' * n, text)
@@ -242,5 +242,8 @@ class TEXTReport(Report):
     def h6(self, text):
         return self.h_i(6, text)
 
-    def showimg(self, img_path, alt='None'):
-        return "![{}]({})\n".format(alt, img_path)
+    def showimg(self, img_path, alt):
+        _alt = alt
+        if not _alt:
+            _alt = img_path
+        return "![{}]({})\n".format(_alt, img_path)
