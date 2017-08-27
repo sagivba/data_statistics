@@ -6,7 +6,7 @@ iris.data.csv
 - Number of columns:5
 - Empty values:0.000%
 - Columns Names:['sepal length', 'sepal width', 'petal length', 'petal width', 'class']
-![Fig\scatter_matrix-class.png](Fig\scatter_matrix-class.png)
+![Fig/scatter_matrix-class.png](Fig/scatter_matrix-class.png)
 # sepal length
 ### data_type: float64
 ### uniq:
@@ -28,7 +28,7 @@ iris.data.csv
 	mostly type: : Mostly Integer
 
 
-![Fig\sepal_length.png](Fig\sepal_length.png)
+![Fig/sepal_length.png](Fig/sepal_length.png)
 # sepal width
 ### data_type: float64
 ### uniq:
@@ -50,7 +50,7 @@ iris.data.csv
 	mostly type: : Mostly Integer
 
 
-![Fig\sepal_width.png](Fig\sepal_width.png)
+![Fig/sepal_width.png](Fig/sepal_width.png)
 # petal length
 ### data_type: float64
 ### uniq:
@@ -72,7 +72,7 @@ iris.data.csv
 	mostly type: : Mostly Integer
 
 
-![Fig\petal_length.png](Fig\petal_length.png)
+![Fig/petal_length.png](Fig/petal_length.png)
 # petal width
 ### data_type: float64
 ### uniq:
@@ -94,7 +94,7 @@ iris.data.csv
 	mostly type: : Mostly Integer
 
 
-![Fig\petal_width.png](Fig\petal_width.png)
+![Fig/petal_width.png](Fig/petal_width.png)
 # class
 ### data_type: object
 ### uniq:
@@ -108,4 +108,4 @@ setosa, versicolor, virginica
 	mostly type: : Unknown
 
 
-![Fig\class.png](Fig\class.png)
+![Fig/class.png](Fig/class.png)
