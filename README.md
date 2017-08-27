@@ -22,23 +22,25 @@ Options:
 
 
 ### html output
-
+## example (output_example-iris_dataset\report.html)
 ```
- [prompt]$ python data_statistics.py -i "TestData/dessert.csv" -D "/tmp/dessert" -v
-data was loaded from /home/sagivba/TestData/dessert.csv
-input_file: '/home/sagivba/TestData/dessert.csv'
-fig dir   : '/home/sagivba/TestData/Fig/'
-out_file  : '/home/sagivba/TestData/report.html'
-plot path:  '/tmp/dessert/Fig/id.png'
-plot path:  '/tmp/dessert/Fig/day.of.week.png'
-plot path:  '/tmp/dessert/Fig/num.of.guests.png'
-plot path:  '/tmp/dessert/Fig/hour.png'
-plot path:  '/tmp/dessert/Fig/table.png'
-plot path:  '/tmp/dessert/Fig/dessert.png'
+prompt> python data_statistics.py -i "TestData\iris.data.csv" -D "d:\tmp\dout" -v
+data was loaded from TestData\iris.data.csv
+report_name: iris.data.csv
+input_file: 'H:\DataMining\TestData\iris.data.csv'
+fig dir   : 'd:\tmp\dout\Fig\'
+out_file  : 'd:\tmp\dout\report.html'
+plot path:  'd:\tmp\dout\Fig\scatter_matrix-class.png'
+plot path:  'd:\tmp\dout\Fig\sepal length.png'
+plot path:  'd:\tmp\dout\Fig\sepal width.png'
+plot path:  'd:\tmp\dout\Fig\petal length.png'
+plot path:  'd:\tmp\dout\Fig\petal width.png'
+plot path:  'd:\tmp\dout\Fig\class.png'
 
 
-out file: /tmp/dessert/report.html
+out file: 'd:\tmp\dout\report.html'
 ```
+
 
 
 

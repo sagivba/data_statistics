@@ -1,7 +1,7 @@
 from  DataUtils.Reporter.ColumnReporter import ColumnReporter
 from  DataUtils.Reporter.DataInfo import DataInfo
-
-
+from MachineLearningUtils.UsefulPlots import DataPlots
+import json
 
 class Report():
     """creates html or text report from report_data_lst """
@@ -15,37 +15,54 @@ class Report():
     def verbose(self, text):
         if self.config.is_verbose: print(text)
 
-    def run(self):
+    def run(self, target=None):
 
         _df = self.df
-        self.report = self.report_header("ll") + "\n"
-        self.report += self.report_data_info(DataInfo(_df, self.config).info_dict)
+        _data_info_dict = DataInfo(_df, self.config).info_dict
 
+        self.report_lst = []
+        self.report_lst.append({"report_header": self.report_name})
+        self.report_lst.append({"report_data_info": _data_info_dict})
+
+        self.report = self.report_header(self.report_name) + "\n"
+
+        self.scatter_matrix_fig_path = None
+        if target:
+            self.plot_scatter_matrix(target=target, save=True)
+        self.report += self.report_data_info(_data_info_dict, self.scatter_matrix_fig_path)
+        self.report_lst.append({"scatter_matrix": self.scatter_matrix_fig_path})
+
+        columns_report_lst = []
         for col_name in _df:
             col_report = ColumnReporter(_df[col_name], self.config)
             col_report_dict = col_report.report()
+            columns_report_lst.append(col_report_dict)
             self.report += self.format(col_report_dict)
+        self.report_lst.append({"columns_report": columns_report_lst})
+
 
         return self.report
 
     def format_data_info_line(self, lbl, data_info_dict):
         return "{}:{}\n".format(lbl, data_info_dict[lbl])
 
-    def report_data_info(self, data_info_dict):
+    def report_data_info(self, data_info_dict, scatter_matrix_fig_path=None):
         text = ""
         for lbl in ["Number of Records", "Number of columns", "Empty values", "Columns Names"]:
             line = self.format_data_info_line(lbl, data_info_dict)
             text += line
+        if scatter_matrix_fig_path is not None:
+            text += self.showimg(self.scatter_matrix_fig_path)
         return self.container(text)
 
     def report_header(self, text):
-        return text
+        return str(text)
 
     def container(self, text):
-        return text
+        return str(text)
 
     def info(self, text):
-        return text
+        return str(text)
 
     def show_plot(self, img):
         return img
@@ -94,7 +111,7 @@ class Report():
         text = ""
 
         h1 = self.h1("{}".format(_crd["name"]))
-        info += self.h3("data_type: {}".format(_crd["data_dype"]))
+        info += self.h3("data_type: {}".format(_crd["data_type"]))
         info += self.h3("uniq:")
         info += self.div(_crd["unique_values"])
         info += self.div(self.h3("statistic_info:") + str_statistic_info(_crd["statistic_info"]))
@@ -105,6 +122,24 @@ class Report():
         text = self.container(h1 + text)
         return text
 
+    def plot_scatter_matrix(self, target, save=True):
+        plotter = DataPlots(df=self.df)
+        fig = plotter.colored_scatter_matrix(df=self.df, colored_column_name=target)
+        fig_file_name = "scatter_matrix-{}.png".format(target)
+        self.scatter_matrix_fig_path = self.config.fig_path(fig_file_name)
+        self.verbose("plot path:  '{}'".format(self.scatter_matrix_fig_path))
+        if save:
+            fig.savefig(self.scatter_matrix_fig_path)
+        return fig
+
+
+class JSONReport(Report):
+    def run(self, target=None):
+        Report.run(self, target=target)
+        jsnencdr = json.JSONEncoder()
+
+        json_report = jsnencdr.encode(o=self.report_lst)
+        return json_report
 
 class HTMLReport(Report):
     def format_data_info_line(self, lbl, data_info_dict):

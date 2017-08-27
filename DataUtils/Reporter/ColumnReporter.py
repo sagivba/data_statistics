@@ -32,7 +32,7 @@ class ColumnReporter():
         self.report_dict = {
             "name": _data.name,
             "unique_values": self.unique(),
-            "data_dype": self.conclude_data_type(),
+            "data_type": str(self.conclude_data_type()),
             "plot_object": self.fig_path,
             "statistic_info": self.statistics()
         }
@@ -45,23 +45,23 @@ class ColumnReporter():
 
         if str(self.data_column.dtype) != 'object':
             try:
-                statistic_dict["median "] = _data.median()
+                statistic_dict["median "] = str(_data.median())
             except:
                 pass
             try:
-                statistic_dict["mean"] = _data.mean()
+                statistic_dict["mean"] = str(_data.mean())
             except:
                 pass
             try:
-                statistic_dict["max"] = _data.max()
+                statistic_dict["max"] = str(_data.max())
             except:
                 pass
             try:
-                statistic_dict["min"] = _data.min()
+                statistic_dict["min"] = str(_data.min())
             except:
                 pass
         try:
-            statistic_dict["mode"] = ";".join(list(_data.mode()))
+            statistic_dict["mode"] = ";".join(map(str, list(_data.mode())))
         except:
             pass
         self.mostly()
