@@ -22,7 +22,7 @@ Options:
 
 
 ### html output
-## example (output_example-iris_dataset\report.html)
+## [example](output_example-iris_dataset\report.html)
 ```
 prompt> python data_statistics.py -i "TestData\iris.data.csv" -D "d:\tmp\dout" -v
 data was loaded from TestData\iris.data.csv
