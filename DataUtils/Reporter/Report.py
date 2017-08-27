@@ -26,11 +26,13 @@ class Report():
 
         self.report = self.report_header(self.report_name) + "\n"
 
-        self.scatter_matrix_fig_path = None
+        self.scatter_matrix_abs_path = None
+        self.scatter_matrix_rel_path = None
         if target:
             self.plot_scatter_matrix(target=target, save=True)
-        self.report += self.report_data_info(_data_info_dict, self.scatter_matrix_fig_path)
-        self.report_lst.append({"scatter_matrix": self.scatter_matrix_fig_path})
+        rdinf = self.report_data_info(_data_info_dict, self.scatter_matrix_rel_path)
+        self.report += rdinf
+        self.report_lst.append({"scatter_matrix": self.scatter_matrix_rel_path})
 
         columns_report_lst = []
         for col_name in _df:
@@ -48,12 +50,15 @@ class Report():
 
     def report_data_info(self, data_info_dict, scatter_matrix_fig_path=None):
         text = ""
+        data_info_lines = []
         for lbl in ["Number of Records", "Number of columns", "Empty values", "Columns Names"]:
+            data_info_lines.append({lbl: data_info_dict})
             line = self.format_data_info_line(lbl, data_info_dict)
             text += line
+        self.report_lst.append({"data_info": data_info_lines})
         if scatter_matrix_fig_path is not None:
-            text += self.showimg(self.scatter_matrix_fig_path)
-        return self.container(text)
+            text += self.showimg(scatter_matrix_fig_path)
+        return self.container(self.ul(text))
 
     def report_header(self, text):
         return str(text)
@@ -66,6 +71,9 @@ class Report():
 
     def show_plot(self, img):
         return img
+
+    def ul(self, text):
+        return str(text)
 
     def h_i(self, chr, text):
         return "\n{}{}{} {} {}{}{}\n".format(chr, chr, chr, text, chr, chr, chr)
@@ -126,10 +134,11 @@ class Report():
         plotter = DataPlots(df=self.df)
         fig = plotter.colored_scatter_matrix(df=self.df, colored_column_name=target)
         fig_file_name = "scatter_matrix-{}.png".format(target)
-        self.scatter_matrix_fig_path = self.config.fig_path(fig_file_name)
-        self.verbose("plot path:  '{}'".format(self.scatter_matrix_fig_path))
+        self.scatter_matrix_abs_path = self.config.fig_path(fig_file_name, is_absolute=True)
+        self.scatter_matrix_rel_path = self.config.fig_path(fig_file_name, is_absolute=False)
+        self.verbose("plot path:  '{}'".format(self.scatter_matrix_abs_path))
         if save:
-            fig.savefig(self.scatter_matrix_fig_path)
+            fig.savefig(self.scatter_matrix_abs_path)
         return fig
 
 
@@ -172,6 +181,8 @@ class HTMLReport(Report):
     def show_plot(self, img):
         return '<div class="col-sm-6">\n{}</div>\n'.format(img)
 
+    def ul(self, text):
+        return "<ul>\n{}\n</ul>".format(text)
     def h_i(self, i, text):
         return "<h{}>{}</h{}>\n".format(i, text, i)
 
@@ -204,23 +215,32 @@ class HTMLReport(Report):
 
 
 class TEXTReport(Report):
-    def h_i(self, chr, text):
-        return "\n{}{}{} {} {}{}{}\n".format(chr, chr, chr, text, chr, chr, chr)
+    def report_header(self, text):
+        return "***\n{}\n***\n".format(text)
+
+    def format_data_info_line(self, lbl, data_info_dict):
+        return "{}:{}\n".format(lbl, data_info_dict[lbl])
+
+    def h_i(self, n, text):
+        return "{} {}\n".format('#' * n, text)
 
     def h1(self, text):
-        return self.h_i('#', text)
+        return self.h_i(1, text)
 
     def h2(self, text):
-        return self.h_i('*', text)
+        return self.h_i(2, text)
 
     def h3(self, text):
-        return self.h_i('=', text)
+        return self.h_i(3, text)
 
     def h4(self, text):
-        return self.h_i('-', text)
+        return self.h_i(4, text)
 
     def h5(self, text):
-        return self.h_i('.', text)
+        return self.h_i(5, text)
 
     def h6(self, text):
-        return self.h_i(' ', text)
+        return self.h_i(6, text)
+
+    def showimg(self, img_path, alt='None'):
+        return "![{}]({})\n".format(alt, img_path)

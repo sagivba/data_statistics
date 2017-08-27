@@ -33,7 +33,7 @@ class ColumnReporter():
             "name": _data.name,
             "unique_values": self.unique(),
             "data_type": str(self.conclude_data_type()),
-            "plot_object": self.fig_path,
+            "plot_object": self.rel_fig_path,
             "statistic_info": self.statistics()
         }
 
@@ -71,13 +71,14 @@ class ColumnReporter():
         return statistic_dict
 
     def plot(self, save=True):
-        fig_file_name = "{}.png".format(self.data_column.name)
-        self.fig_path = self.config.fig_path(fig_file_name)
+        fig_file_name = "{}.png".format(str(self.data_column.name).replace(' ', '_'))
+        self.abs_fig_path = self.config.fig_path(fig_file_name, is_absolute=True)
+        self.rel_fig_path = self.config.fig_path(fig_file_name, is_absolute=False)
         plotter = DataPlots()
         fig = plotter.plot_column(self.data_column)
-        self.verbose("plot path:  '{}'".format(self.fig_path))
+        self.verbose("plot path:  '{}'".format(self.abs_fig_path))
         if save:
-            fig.savefig(self.fig_path)
+            fig.savefig(self.abs_fig_path)
         return fig
 
     def unique(self):

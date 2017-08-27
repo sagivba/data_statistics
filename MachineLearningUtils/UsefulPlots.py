@@ -94,7 +94,7 @@ class _BasePlot():
                         return "--None--"
 
                 uniq_list = z.unique()
-                print(uniq_list)
+                # print(uniq_list)
                 sorted_uniq = sorted(map(to_str, uniq_list))
                 map_dict = dict([(k, i) for i, k in enumerate(sorted_uniq)])
                 _z_col = z.map(lambda x: map_dict[x])
@@ -168,7 +168,6 @@ class DataPlots(_BasePlot):
         :param z2color: pandas series object
         :param ax    : plt.Axes
         :param figsize: (lengrh,witdh) inches
-        :param subplot_info: parameter of the fig.add_subplot
         :param color_func: input pandas series object - return pandas series object  of colors
         :return:
         """
@@ -192,9 +191,9 @@ class DataPlots(_BasePlot):
         # scatter with colormap mapping to z value
         # Nones replaced with stirng
         _z2color = z2color.fillna("--None--")
-        print("_z2color={}".format(_z2color.unique()))
-        print("x={}".format(x.unique()))
-        print("y={}".format(y.unique()))
+        # print("_z2color={}".format(_z2color.unique()))
+        # print("x={}".format(x.unique()))
+        # print("y={}".format(y.unique()))
         colors = _color_func(_z2color)
         # print( pd.Series(colors).unique())
         _ax.scatter(x, y, s=s, c=colors, marker='o', cmap=self.cmap);
@@ -242,7 +241,7 @@ class DataPlots(_BasePlot):
         if not colored_column_name:
             raise ValueError("colored_column_name is missing")
         if not colored_column_name in list(df):
-            raise ValueError("{} is not on of df columns: {}".format(colored_column_name, list(_df)))
+            raise ValueError("{} is not on of df columns: {}".format(colored_column_name, list(df)))
 
         _figsize = self._set_figsize(figsize)
         _df = self._set_df(df)
@@ -260,7 +259,7 @@ class DataPlots(_BasePlot):
         _figsize = self._set_figsize(figsize)
         _fig, axes = plt.subplots(nrows=_ncols, ncols=_ncols, figsize=_figsize)
         _fig.subplots_adjust(hspace=0.05, wspace=0.05)
-        print(_df.head())
+        # print(_df.head())
         # Hide all ticks and labels
         for ax in axes.flat:
             ax.xaxis.set_visible(False)
@@ -270,7 +269,7 @@ class DataPlots(_BasePlot):
         # Plot the data.
         for i, col_x in enumerate(_df):
             for j, col_y in enumerate(_df):
-                print("{},{}==>{},{}".format(i, j, col_x, col_y))
+                # print("{},{}==>{},{}".format(i, j, col_x, col_y))
                 _df = _df_copy.copy()
                 # _df["_z2color"] = _z2color
                 _z2color = _z2color[(_df[col_x].notnull()) & (_df[col_y].notnull())]
